@@ -1,0 +1,402 @@
+const PropertyRentalUnit = require("../models/propertyRentalUnitSchema");
+const path = require("node:path");
+const fs = require("node:fs");
+const mongoose = require("mongoose");
+const Property = require("../models/propertiesSchema");
+
+const getAllPropertyRentalUnits = async (req, res) => {
+    try {
+        const units = await PropertyRentalUnit.find();
+        res.status(200).json(units);
+    } catch (error) {
+        console.error("Error fetching property rental units:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+};
+
+const getPropertyRentalUnitByPropertyId = async (req, res) => {
+    try {
+        const propertyId = req.params.id;
+
+        if (!propertyId) {
+            return res.status(400).json({error: "Property ID is missing"});
+        }
+
+        // Fetch the property by ID
+        const property = await Property.findById(propertyId);
+        if (!property) {
+            return res.status(404).json({error: "Property not found"});
+        }
+
+        // Extract max_floor from the property
+        const max_floors = property.max_floors;
+
+        // Fetch rental units assigned to the property and extract floor information
+        const assignedFloors = await PropertyRentalUnit.find({property_id: propertyId}).select('floor');
+        const occupiedFloors = assignedFloors.map(unit => unit.floor);
+
+        // Fetch all rental units for the property (including any details you need from the units)
+        const units = await PropertyRentalUnit.find({property_id: propertyId});
+
+        // Respond with the data
+        res.status(200).json({max_floors, occupied_floors: occupiedFloors, units});
+    } catch (error) {
+        console.error("Error fetching property rental units:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+};
+
+
+const getPropertyRentalUnitById = async (req, res) => {
+    try {
+        const unitId = req.params.id;
+        const unit = await PropertyRentalUnit.findById(unitId);
+        if (!unit) {
+            return res.status(404).json({error: "Property rental unit not found"});
+        }
+        res.status(200).json(unit);
+    } catch (error) {
+        console.error("Error fetching property rental unit:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+}
+
+const addPropertiesUnit = async (req, res) => {
+    try {
+        const {
+            property_id,
+            floor,
+            number_of_bedrooms,
+            number_of_bathrooms,
+            price,
+            rent_period,
+            status,
+            space_sharing,
+            unit_description,
+            amenities,
+        } = req.body;
+
+        console.log(req.body)
+
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({message: "No images uploaded."});
+        }
+
+
+        // Validate required fields
+        if (
+            !property_id ||
+            !floor ||
+            !number_of_bedrooms ||
+            !number_of_bathrooms ||
+            !price ||
+            !rent_period ||
+            !status ||
+            !space_sharing
+        ) {
+            return res.status(400).json({message: "All required fields must be filled."});
+        }
+
+        // convert string to boolean
+        const space_sharing_boolean = req.body.space_sharing === 'true';
+
+        // Handle uploaded images
+        const unit_images = req.files?.map(file => `/uploads/${file.filename}`);
+
+        const amenitiesArray = JSON.parse(amenities);
+
+        // Validate that it is indeed an array of objects
+        if (Array.isArray(amenitiesArray) && amenitiesArray.every(item => typeof item === 'object')) {
+            console.log("Converted to array of objects:", amenitiesArray);
+        } else {
+            console.error("Parsed amenities is not a valid array of objects.");
+        }
+
+        const newAmenitiesWithIds = amenitiesArray.map((amenity) => ({
+            ...amenity,
+            _id: new mongoose.Types.ObjectId(), // Generate unique MongoDB ObjectId
+        }));
+
+        // Create a new rental unit
+        const newUnit = new PropertyRentalUnit({
+            property_id,
+            floor,
+            number_of_bedrooms,
+            number_of_bathrooms,
+            price,
+            rent_period,
+            status,
+            space_sharing: space_sharing_boolean,
+            unit_description,
+            unit_images,
+            amenities: newAmenitiesWithIds,
+        });
+
+        // Save to the database
+        const savedUnit = await newUnit.save();
+
+        return res.status(201).json({
+            message: "Property rental unit added successfully!",
+            data: savedUnit,
+        });
+    } catch (error) {
+        console.error("Error adding property rental unit:", error);
+        return res.status(500).json({message: "Internal Server Error", error: error.message});
+    }
+};
+
+const updatePropertyRentalUnit = async (req, res) => {
+    const unitId = req.params.id;
+    //check if unitId is provided
+    if (!unitId) {
+        return res.status(400).json({error: "Property rental unit ID is missing"});
+    }
+    try {
+        // Fetch the existing property from the database
+        const existingPropertyRentalUnit = await PropertyRentalUnit.findById(unitId);
+
+        if (!existingPropertyRentalUnit) {
+            return res.status(404).json({error: "Property not found"});
+        }
+        // Incoming data is structured in the following way:
+        // existing_images: Array of existing image URLs (strings)
+        // new_images: Array of new uploaded image files (File objects)
+        const {amenities = [], existing_images} = req.body;
+
+        let parsedAmenities;
+        try {
+            parsedAmenities = JSON.parse(amenities);
+        } catch (error) {
+            return res.status(400).json({error: "Invalid amenities format"});
+        }
+
+        // Separate existing and new amenities
+        const existingAmenities = parsedAmenities.filter((amenity) => amenity._id); // Amenities with `_id`
+        const newAmenities = parsedAmenities.filter((amenity) => !amenity._id); // Amenities without `_id`
+
+        // Generate unique _id for new amenities
+        const newAmenitiesWithIds = newAmenities.map((amenity) => ({
+            ...amenity,
+            _id: new mongoose.Types.ObjectId(), // Generate unique MongoDB ObjectId
+        }));
+
+        // Combine existing amenities (validated by `_id`) with new amenities
+        const updatedAmenities = [...existingAmenities, ...newAmenitiesWithIds];
+
+        // 1. Existing images (URLs) handling
+        const existingImages = existingPropertyRentalUnit.unit_images || [];
+
+        // 2. New image files handling (from multer)
+        const newRentalUnitImageFiles = req.files || []; // New images uploaded via `multer`
+
+        // 3. Remove images that are not in the updated list
+        const imagesToRemove = existingImages.filter(img => !existing_images.includes(img));
+
+        // 4. Delete images from the file system
+        await Promise.all(imagesToRemove.map(async (imagePath) => {
+            const fullPath = path.join(__dirname, '..', 'uploads', imagePath.replace('/uploads/', ''));
+            if (fs.existsSync(fullPath)) {
+                await fs.promises.unlink(fullPath); // Asynchronous file deletion
+            }
+        }));
+
+
+        // 5. Map new image files to paths and add them to the list of images
+        const newImagePaths = newRentalUnitImageFiles.map(file => `/uploads/${file.filename}`);
+
+        // Combine existing images with new ones
+        const updatedImages = [...existing_images, ...newImagePaths];
+
+        // 6. Update the property rental unit in the database
+        const updatedData = {
+            ...req.body,
+            unit_images: updatedImages,
+            amenities: updatedAmenities
+        };
+
+        // 7. Update the property in the database
+        const updatedProperty = await PropertyRentalUnit.findByIdAndUpdate(unitId, updatedData, {
+            new: true,
+            runValidators: true
+        });
+
+        if (!updatedProperty) {
+            return res.status(404).json({error: "Property not found"});
+        }
+
+        res.status(200).json({
+            message: "Property rental unit updated successfully!",
+            data: updatedProperty,
+        });
+
+        console.log("Existing Property Rental Unit: ", existingPropertyRentalUnit);
+
+    } catch (error) {
+        console.error("Error updating property rental unit:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+};
+
+const deletePropertyRentalUnit = async (req, res) => {
+    const unitId = req.params.id;
+
+    try {
+        // Find property by ID
+        const property_rental_unit = await PropertyRentalUnit.findById(unitId);
+
+        if (!property_rental_unit) {
+            return res.status(404).json({error: "Property not found"});
+        }
+
+        console.log(property_rental_unit)
+
+        // Check if unit_images exists and is an array before proceeding with the forEach
+        if (Array.isArray(property_rental_unit.unit_images)) {
+            property_rental_unit.unit_images.forEach((image) => {
+                const imagePath = path.join(__dirname, "..", "uploads", image);
+                if (fs.existsSync(imagePath)) {
+                    fs.unlinkSync(imagePath);
+                }
+            });
+        } else {
+            console.warn("unit_images is not defined or not an array");
+        }
+
+        // Delete the property from the database
+        await property_rental_unit.deleteOne();
+
+        res.status(200).json({message: "Property deleted successfully"});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error: "Error deleting property"});
+    }
+};
+
+const getAllPropertyRentalUnitsWithProperty = async (req, res) => {
+    try {
+        // Get page and limit from query, default to 1 and 10 respectively
+        const page = Math.max(1, parseInt(req.query.page) || 1); // Ensure page is at least 1
+        const limit = Math.max(1, parseInt(req.query.limit) || 10); // Ensure limit is at least 1
+        const skip = (page - 1) * limit; // Calculate how many items to skip
+
+        const units = await PropertyRentalUnit.find()
+            .sort({createdAt: -1}) // Sort by createdAt in descending order
+            .skip(skip) // Apply skip for pagination
+            .limit(limit) // Apply limit for pagination
+            .populate('property_id'); // Populate the property_id field
+
+
+        const recommendations = await Property.aggregate([
+            {
+                $lookup: {
+                    from: "propertyrentalunits",
+                    localField: "_id",
+                    foreignField: "property_id",
+                    as: "rental_units",
+                },
+            },
+            {
+                $addFields: {
+                    total_units: {$size: "$rental_units"},
+                    available_units: {
+                        $size: {
+                            $filter: {
+                                input: "$rental_units",
+                                as: "unit",
+                                cond: {$eq: ["$$unit.status", "Vacant"]},
+                            },
+                        },
+                    },
+                    lowest_price: {$min: "$rental_units.price"},
+                    highest_price: {$max: "$rental_units.price"},
+                },
+            },
+            {
+                $match: {
+                    available_units: {$gt: 0}, // Only include properties with available rental units
+                },
+            },
+            { 
+                $project: {
+                    rental_units: 0,
+                },
+            },
+        ]);
+
+
+        const total_recommendations = await Property.countDocuments();
+
+        const total_recommendations_pages = Math.ceil(total_recommendations / limit);
+
+        // Get total number of properties
+        const total_units = await PropertyRentalUnit.countDocuments();
+
+        // Calculate total number of pages
+        const total_pages = Math.ceil(total_units / limit);
+
+        res.status(200).json({
+            units,
+            current_page: page,
+            total_pages,
+            total_units,
+            total_recommendations,
+            total_recommendations_pages, recommendations
+        });
+    } catch (error) {
+        console.error("Error fetching property rental units:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+
+}
+
+const getPropertyRentalUnitWithPropertyById = async (req, res) => {
+    // try {
+    //     const unitId = req.params.id;
+    //     const unit = await PropertyRentalUnit.findById(unitId).populate('property_id');
+    //     if (!unit) {
+    //         return res.status(404).json({ error: "Property rental unit not found" });
+    //     }
+    //     res.status(200).json(unit);
+    // } catch (error) {
+    //     console.error("Error fetching property rental unit:", error);
+    //     res.status(500).json({ error: "Internal server error" });
+    // }
+
+    try {
+        const propertyId = req.params.id; // Assume property_id is sent here
+
+        if (!propertyId) {
+            return res.status(400).json({error: "Property ID is missing"});
+        }
+        // Fetch all rental units for the given property
+        const property = await Property.findById(propertyId);
+        const rentalUnits = await PropertyRentalUnit.find({ property_id:propertyId });
+        if (!rentalUnits || rentalUnits.length === 0) {
+            return res.status(404).json({error: "No rental units found for this property"});
+        }
+
+        res.status(200).json({rentalUnits, property})
+    }
+    catch (error) {
+        console.error("Error fetching property rental units:", error);
+
+        // Handle invalid MongoDB ObjectId
+        if (error.name === "CastError") {
+            return res.status(400).json({error: "Invalid ID format"});
+        }
+
+        res.status(500).json({error: "Internal server error"});
+    }
+};
+
+
+module.exports = {
+    addPropertiesUnit,
+    getAllPropertyRentalUnits,
+    getPropertyRentalUnitByPropertyId,
+    getPropertyRentalUnitById,
+    updatePropertyRentalUnit,
+    deletePropertyRentalUnit,
+    getAllPropertyRentalUnitsWithProperty,
+    getPropertyRentalUnitWithPropertyById
+};

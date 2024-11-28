@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --scrollbar-thumb-background: #6366f1;
+  --scrollbar-thumb-background-hover: #4f46e5;
+  --text-color:white
+}
+
+#root {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-optical-sizing: auto;
+  height: 100dvh;
+  background: #f5f5f5;
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "main main";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
+
+[data-theme="dark"] {
+  --scrollbar-thumb-background: #c7d2fe;
+  --scrollbar-thumb-background-hover: #a5b4fc;
+  --text-color:black
+}
+
+@layer base {
+  body {
+    min-width: 320px;
+  }
+  aside {
+    grid-area: aside;
+  }
+  header {
+    grid-area: header;
+  }
+
+  main {
+    grid-area: main;
+  }
+
+  footer {
+    grid-area: footer;
+  }
+}
+
+@layer components {
+  .navlinks {
+    @apply relative flex flex-row gap-2 text-center items-center p-2 w-full rounded-lg;
+  }
+
+  .navlinks:hover {
+    @apply bg-gray-200;
+  }
+  .fade-enter {
+    opacity: 0;
+  }
+
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 100ms;
+  }
+
+  .fade-exit {
+    opacity: 1;
+  }
+
+  .fade-exit-active {
+    opacity: 0;
+    transition: opacity 100ms;
+  }
+
+  .swiper-pagination {
+    position: relative;
+    bottom: 0 !important;
+  }
+  
+  .swiper-pagination .swiper-pagination-bullet {
+    background: var(--scrollbar-thumb-background);
+    opacity: 0.25;
+    filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
+  }
+  
+  .swiper-pagination .swiper-pagination-bullet-active {
+    background: var(--scrollbar-thumb-background-hover);
+    opacity: 1;
+  }
+
+  .swiper-button-prev::after, .swiper-button-next::after {
+    color: var(--text-color);
+    font-size: 1rem !important;
+    padding: 0.5rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid;
+    background-color: var(--scrollbar-thumb-background);
+    z-index: 1;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    @apply w-3;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-background);
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-background-hover);
+  }
+}

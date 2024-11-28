@@ -1,0 +1,49 @@
+const preferencesSchema = new mongoose.Schema({
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    price_range: {
+        min: {
+            type: Number,
+            required: true,
+        },
+        max: {
+            type: Number,
+            required: true,
+        },
+    },
+    space_sharing: {
+        type: String,
+        enum: ["yes", "no"],
+        required: true,
+    },
+    amenities: [
+        {
+            key: {
+                type: String,
+                required: true,
+            },
+            value: {
+                type: String,
+                required: true,
+            },
+        },
+    ],
+    location: {
+        type: {
+            type: String,
+            enum: ["Point"],
+            default: "Point", // GeoJSON format
+        },
+        coordinates: {
+            type: [Number], // [longitude, latitude]
+            default: [],
+
+        },
+    },
+});
+
+const Preferences = mongoose.model("Preferences", preferencesSchema);
+module.exports = Preferences;

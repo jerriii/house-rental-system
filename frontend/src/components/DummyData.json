@@ -1,0 +1,904 @@
+{
+  "card_details": [
+    {
+      "id": 1,
+      "property_type": "Toyota",
+      "address": "Room 727",
+      "no_of_rooms": 8,
+      "price": 78968,
+      "image": "http://dummyimage.com/2323x770.png/dddddd/000000",
+      "currency_type": "DZI"
+    },
+    {
+      "id": 2,
+      "property_type": "Mercedes-Benz",
+      "address": "Apt 655",
+      "no_of_rooms": 10,
+      "price": 62262,
+      "image": "http://dummyimage.com/2351x1079.png/5fa2dd/ffffff",
+      "currency_type": "AYR"
+    },
+    {
+      "id": 3,
+      "property_type": "GMC",
+      "address": "Room 119",
+      "no_of_rooms": 9,
+      "price": 22622,
+      "image": "http://dummyimage.com/1331x849.png/ff4444/ffffff",
+      "currency_type": "MAY"
+    },
+    {
+      "id": 4,
+      "property_type": "Chrysler",
+      "address": "16th Floor",
+      "no_of_rooms": 9,
+      "price": 34819,
+      "image": "http://dummyimage.com/1692x1031.png/cc0000/ffffff",
+      "currency_type": "ARW"
+    },
+    {
+      "id": 5,
+      "property_type": "Mercedes-Benz",
+      "address": "PO Box 62118",
+      "no_of_rooms": 7,
+      "price": 32754,
+      "image": "http://dummyimage.com/1695x1069.png/cc0000/ffffff",
+      "currency_type": "MIY"
+    },
+    {
+      "id": 6,
+      "property_type": "Buick",
+      "address": "Apt 453",
+      "no_of_rooms": 2,
+      "price": 29182,
+      "image": "http://dummyimage.com/1951x1416.png/cc0000/ffffff",
+      "currency_type": "0"
+    },
+    {
+      "id": 7,
+      "property_type": "Volkswagen",
+      "address": "4th Floor",
+      "no_of_rooms": 2,
+      "price": 35662,
+      "image": "http://dummyimage.com/2109x945.png/5fa2dd/ffffff",
+      "currency_type": "YEO"
+    },
+    {
+      "id": 8,
+      "property_type": "Mercedes-Benz",
+      "address": "4th Floor",
+      "no_of_rooms": 2,
+      "price": 58841,
+      "image": "http://dummyimage.com/1785x791.png/5fa2dd/ffffff",
+      "currency_type": "SSB"
+    },
+    {
+      "id": 9,
+      "property_type": "Jeep",
+      "address": "Apt 550",
+      "no_of_rooms": 5,
+      "price": 41506,
+      "image": "http://dummyimage.com/1336x1267.png/5fa2dd/ffffff",
+      "currency_type": "YSD"
+    },
+    {
+      "id": 10,
+      "property_type": "Chevrolet",
+      "address": "PO Box 81903",
+      "no_of_rooms": 2,
+      "price": 68380,
+      "image": "http://dummyimage.com/1489x1068.png/ff4444/ffffff",
+      "currency_type": "PVG"
+    },
+    {
+      "id": 11,
+      "property_type": "Volkswagen",
+      "address": "PO Box 95093",
+      "no_of_rooms": 6,
+      "price": 62335,
+      "image": "http://dummyimage.com/1584x1585.png/cc0000/ffffff",
+      "currency_type": "PLV"
+    },
+    {
+      "id": 12,
+      "property_type": "Hyundai",
+      "address": "Room 71",
+      "no_of_rooms": 6,
+      "price": 15870,
+      "image": "http://dummyimage.com/1752x853.png/5fa2dd/ffffff",
+      "currency_type": "KYT"
+    },
+    {
+      "id": 13,
+      "property_type": "Cadillac",
+      "address": "Room 1014",
+      "no_of_rooms": 6,
+      "price": 38341,
+      "image": "http://dummyimage.com/1640x1513.png/cc0000/ffffff",
+      "currency_type": "SCT"
+    },
+    {
+      "id": 14,
+      "property_type": "Acura",
+      "address": "PO Box 95411",
+      "no_of_rooms": 6,
+      "price": 56347,
+      "image": "http://dummyimage.com/1927x1267.png/5fa2dd/ffffff",
+      "currency_type": "JDF"
+    },
+    {
+      "id": 15,
+      "property_type": "Kia",
+      "address": "Apt 1725",
+      "no_of_rooms": 6,
+      "price": 30799,
+      "image": "http://dummyimage.com/2534x787.png/ff4444/ffffff",
+      "currency_type": "TCT"
+    },
+    {
+      "id": 16,
+      "property_type": "Jaguar",
+      "address": "Suite 29",
+      "no_of_rooms": 7,
+      "price": 69702,
+      "image": "http://dummyimage.com/1654x1213.png/cc0000/ffffff",
+      "currency_type": "CUM"
+    },
+    {
+      "id": 17,
+      "property_type": "Ford",
+      "address": "Apt 1225",
+      "no_of_rooms": 7,
+      "price": 83449,
+      "image": "http://dummyimage.com/1851x1291.png/dddddd/000000",
+      "currency_type": "THY"
+    },
+    {
+      "id": 18,
+      "property_type": "Lincoln",
+      "address": "19th Floor",
+      "no_of_rooms": 3,
+      "price": 98365,
+      "image": "http://dummyimage.com/1222x1227.png/dddddd/000000",
+      "currency_type": "HTM"
+    },
+    {
+      "id": 19,
+      "property_type": "Volkswagen",
+      "address": "20th Floor",
+      "no_of_rooms": 2,
+      "price": 79133,
+      "image": "http://dummyimage.com/1447x1319.png/dddddd/000000",
+      "currency_type": "SNZ"
+    },
+    {
+      "id": 20,
+      "property_type": "Mazda",
+      "address": "Suite 86",
+      "no_of_rooms": 1,
+      "price": 16882,
+      "image": "http://dummyimage.com/1675x1063.png/5fa2dd/ffffff",
+      "currency_type": "DHA"
+    },
+    {
+      "id": 21,
+      "property_type": "Lamborghini",
+      "address": "Room 775",
+      "no_of_rooms": 8,
+      "price": 55043,
+      "image": "http://dummyimage.com/2316x1298.png/ff4444/ffffff",
+      "currency_type": "ZSW"
+    },
+    {
+      "id": 22,
+      "property_type": "Ford",
+      "address": "Suite 60",
+      "no_of_rooms": 10,
+      "price": 63892,
+      "image": "http://dummyimage.com/1084x888.png/cc0000/ffffff",
+      "currency_type": "JEQ"
+    },
+    {
+      "id": 23,
+      "property_type": "Dodge",
+      "address": "15th Floor",
+      "no_of_rooms": 10,
+      "price": 11231,
+      "image": "http://dummyimage.com/1668x1401.png/ff4444/ffffff",
+      "currency_type": "TMI"
+    },
+    {
+      "id": 24,
+      "property_type": "Mercedes-Benz",
+      "address": "Apt 1222",
+      "no_of_rooms": 2,
+      "price": 85225,
+      "image": "http://dummyimage.com/1176x1130.png/ff4444/ffffff",
+      "currency_type": "USO"
+    },
+    {
+      "id": 25,
+      "property_type": "Jeep",
+      "address": "Apt 443",
+      "no_of_rooms": 8,
+      "price": 89129,
+      "image": "http://dummyimage.com/2494x773.png/ff4444/ffffff",
+      "currency_type": "IOP"
+    },
+    {
+      "id": 26,
+      "property_type": "Volkswagen",
+      "address": "Room 547",
+      "no_of_rooms": 7,
+      "price": 86108,
+      "image": "http://dummyimage.com/1463x1310.png/5fa2dd/ffffff",
+      "currency_type": "QGC"
+    },
+    {
+      "id": 27,
+      "property_type": "Mercury",
+      "address": "Suite 42",
+      "no_of_rooms": 6,
+      "price": 92492,
+      "image": "http://dummyimage.com/1403x1258.png/dddddd/000000",
+      "currency_type": "CEG"
+    },
+    {
+      "id": 28,
+      "property_type": "BMW",
+      "address": "Room 1559",
+      "no_of_rooms": 6,
+      "price": 67306,
+      "image": "http://dummyimage.com/1059x1048.png/dddddd/000000",
+      "currency_type": "YNX"
+    },
+    {
+      "id": 29,
+      "property_type": "Mercury",
+      "address": "9th Floor",
+      "no_of_rooms": 5,
+      "price": 80727,
+      "image": "http://dummyimage.com/1957x935.png/5fa2dd/ffffff",
+      "currency_type": "KEM"
+    },
+    {
+      "id": 30,
+      "property_type": "Lincoln",
+      "address": "PO Box 29528",
+      "no_of_rooms": 10,
+      "price": 50837,
+      "image": "http://dummyimage.com/1108x924.png/5fa2dd/ffffff",
+      "currency_type": "YQG"
+    },
+    {
+      "id": 31,
+      "property_type": "Buick",
+      "address": "Room 481",
+      "no_of_rooms": 10,
+      "price": 99213,
+      "image": "http://dummyimage.com/2193x974.png/5fa2dd/ffffff",
+      "currency_type": "MDT"
+    },
+    {
+      "id": 32,
+      "property_type": "Honda",
+      "address": "PO Box 68565",
+      "no_of_rooms": 3,
+      "price": 83557,
+      "image": "http://dummyimage.com/1715x1551.png/ff4444/ffffff",
+      "currency_type": "0"
+    },
+    {
+      "id": 33,
+      "property_type": "GMC",
+      "address": "10th Floor",
+      "no_of_rooms": 1,
+      "price": 88622,
+      "image": "http://dummyimage.com/2468x1459.png/cc0000/ffffff",
+      "currency_type": "QJB"
+    },
+    {
+      "id": 34,
+      "property_type": "Pontiac",
+      "address": "Apt 216",
+      "no_of_rooms": 4,
+      "price": 41003,
+      "image": "http://dummyimage.com/1565x1182.png/cc0000/ffffff",
+      "currency_type": "MEA"
+    },
+    {
+      "id": 35,
+      "property_type": "Porsche",
+      "address": "16th Floor",
+      "no_of_rooms": 9,
+      "price": 47734,
+      "image": "http://dummyimage.com/1646x1054.png/ff4444/ffffff",
+      "currency_type": "YES"
+    },
+    {
+      "id": 36,
+      "property_type": "Chevrolet",
+      "address": "1st Floor",
+      "no_of_rooms": 3,
+      "price": 22750,
+      "image": "http://dummyimage.com/1435x1146.png/ff4444/ffffff",
+      "currency_type": "XSI"
+    },
+    {
+      "id": 37,
+      "property_type": "Maybach",
+      "address": "PO Box 25210",
+      "no_of_rooms": 8,
+      "price": 62216,
+      "image": "http://dummyimage.com/1064x1244.png/5fa2dd/ffffff",
+      "currency_type": "SST"
+    },
+    {
+      "id": 38,
+      "property_type": "Plymouth",
+      "address": "PO Box 18600",
+      "no_of_rooms": 1,
+      "price": 38477,
+      "image": "http://dummyimage.com/1890x894.png/5fa2dd/ffffff",
+      "currency_type": "ZTU"
+    },
+    {
+      "id": 39,
+      "property_type": "Dodge",
+      "address": "Suite 92",
+      "no_of_rooms": 2,
+      "price": 66873,
+      "image": "http://dummyimage.com/1667x1573.png/cc0000/ffffff",
+      "currency_type": "HFF"
+    },
+    {
+      "id": 40,
+      "property_type": "Honda",
+      "address": "17th Floor",
+      "no_of_rooms": 6,
+      "price": 66301,
+      "image": "http://dummyimage.com/1256x795.png/dddddd/000000",
+      "currency_type": "GUL"
+    },
+    {
+      "id": 41,
+      "property_type": "Bentley",
+      "address": "PO Box 76087",
+      "no_of_rooms": 8,
+      "price": 24439,
+      "image": "http://dummyimage.com/1673x1463.png/5fa2dd/ffffff",
+      "currency_type": "LYP"
+    },
+    {
+      "id": 42,
+      "property_type": "Subaru",
+      "address": "PO Box 98121",
+      "no_of_rooms": 5,
+      "price": 11231,
+      "image": "http://dummyimage.com/1562x771.png/5fa2dd/ffffff",
+      "currency_type": "ACD"
+    },
+    {
+      "id": 43,
+      "property_type": "Toyota",
+      "address": "Apt 1162",
+      "no_of_rooms": 10,
+      "price": 27018,
+      "image": "http://dummyimage.com/1809x1280.png/5fa2dd/ffffff",
+      "currency_type": "TCD"
+    },
+    {
+      "id": 44,
+      "property_type": "Mitsubishi",
+      "address": "PO Box 86371",
+      "no_of_rooms": 10,
+      "price": 65586,
+      "image": "http://dummyimage.com/2187x1572.png/cc0000/ffffff",
+      "currency_type": "BPT"
+    },
+    {
+      "id": 45,
+      "property_type": "Cadillac",
+      "address": "Apt 1314",
+      "no_of_rooms": 1,
+      "price": 21707,
+      "image": "http://dummyimage.com/2105x1451.png/cc0000/ffffff",
+      "currency_type": "YCZ"
+    },
+    {
+      "id": 46,
+      "property_type": "Mitsubishi",
+      "address": "Apt 1837",
+      "no_of_rooms": 9,
+      "price": 22995,
+      "image": "http://dummyimage.com/2425x905.png/cc0000/ffffff",
+      "currency_type": "IKP"
+    },
+    {
+      "id": 47,
+      "property_type": "Isuzu",
+      "address": "PO Box 1005",
+      "no_of_rooms": 4,
+      "price": 84705,
+      "image": "http://dummyimage.com/2228x1117.png/5fa2dd/ffffff",
+      "currency_type": "KCS"
+    },
+    {
+      "id": 48,
+      "property_type": "Mazda",
+      "address": "3rd Floor",
+      "no_of_rooms": 1,
+      "price": 47232,
+      "image": "http://dummyimage.com/2265x1251.png/ff4444/ffffff",
+      "currency_type": "MAG"
+    },
+    {
+      "id": 49,
+      "property_type": "GMC",
+      "address": "19th Floor",
+      "no_of_rooms": 5,
+      "price": 79286,
+      "image": "http://dummyimage.com/1145x961.png/ff4444/ffffff",
+      "currency_type": "JDP"
+    },
+    {
+      "id": 50,
+      "property_type": "Dodge",
+      "address": "Room 1951",
+      "no_of_rooms": 7,
+      "price": 84076,
+      "image": "http://dummyimage.com/1890x1490.png/5fa2dd/ffffff",
+      "currency_type": "XLW"
+    },
+    {
+      "id": 51,
+      "property_type": "Porsche",
+      "address": "Suite 36",
+      "no_of_rooms": 4,
+      "price": 16201,
+      "image": "http://dummyimage.com/1348x969.png/cc0000/ffffff",
+      "currency_type": "UTA"
+    },
+    {
+      "id": 52,
+      "property_type": "Pontiac",
+      "address": "PO Box 65769",
+      "no_of_rooms": 9,
+      "price": 11232,
+      "image": "http://dummyimage.com/2358x855.png/dddddd/000000",
+      "currency_type": "COT"
+    },
+    {
+      "id": 53,
+      "property_type": "Pontiac",
+      "address": "4th Floor",
+      "no_of_rooms": 9,
+      "price": 70593,
+      "image": "http://dummyimage.com/2373x1328.png/5fa2dd/ffffff",
+      "currency_type": "CXB"
+    },
+    {
+      "id": 54,
+      "property_type": "Hummer",
+      "address": "Apt 778",
+      "no_of_rooms": 7,
+      "price": 18298,
+      "image": "http://dummyimage.com/1601x855.png/ff4444/ffffff",
+      "currency_type": "CYA"
+    },
+    {
+      "id": 55,
+      "property_type": "Suzuki",
+      "address": "Apt 839",
+      "no_of_rooms": 7,
+      "price": 65549,
+      "image": "http://dummyimage.com/1794x1381.png/5fa2dd/ffffff",
+      "currency_type": "AOC"
+    },
+    {
+      "id": 56,
+      "property_type": "Kia",
+      "address": "2nd Floor",
+      "no_of_rooms": 5,
+      "price": 87085,
+      "image": "http://dummyimage.com/1635x1574.png/5fa2dd/ffffff",
+      "currency_type": "CSO"
+    },
+    {
+      "id": 57,
+      "property_type": "Ford",
+      "address": "Room 1929",
+      "no_of_rooms": 5,
+      "price": 15875,
+      "image": "http://dummyimage.com/2174x937.png/dddddd/000000",
+      "currency_type": "TGM"
+    },
+    {
+      "id": 58,
+      "property_type": "Scion",
+      "address": "Apt 1749",
+      "no_of_rooms": 8,
+      "price": 87265,
+      "image": "http://dummyimage.com/1184x1452.png/5fa2dd/ffffff",
+      "currency_type": "AAK"
+    },
+    {
+      "id": 59,
+      "property_type": "Chrysler",
+      "address": "Room 11",
+      "no_of_rooms": 4,
+      "price": 65938,
+      "image": "http://dummyimage.com/1847x1312.png/5fa2dd/ffffff",
+      "currency_type": "RBL"
+    },
+    {
+      "id": 60,
+      "property_type": "Buick",
+      "address": "Room 1339",
+      "no_of_rooms": 10,
+      "price": 74748,
+      "image": "http://dummyimage.com/1954x1052.png/cc0000/ffffff",
+      "currency_type": "AID"
+    },
+    {
+      "id": 61,
+      "property_type": "Saab",
+      "address": "Suite 73",
+      "no_of_rooms": 4,
+      "price": 13921,
+      "image": "http://dummyimage.com/2407x838.png/cc0000/ffffff",
+      "currency_type": "CWX"
+    },
+    {
+      "id": 62,
+      "property_type": "Audi",
+      "address": "Room 327",
+      "no_of_rooms": 3,
+      "price": 60913,
+      "image": "http://dummyimage.com/2539x979.png/5fa2dd/ffffff",
+      "currency_type": "LUR"
+    },
+    {
+      "id": 63,
+      "property_type": "Chevrolet",
+      "address": "3rd Floor",
+      "no_of_rooms": 6,
+      "price": 65156,
+      "image": "http://dummyimage.com/2114x1187.png/dddddd/000000",
+      "currency_type": "ELC"
+    },
+    {
+      "id": 64,
+      "property_type": "Lamborghini",
+      "address": "Apt 1265",
+      "no_of_rooms": 1,
+      "price": 90470,
+      "image": "http://dummyimage.com/2005x894.png/dddddd/000000",
+      "currency_type": "YQW"
+    },
+    {
+      "id": 65,
+      "property_type": "Lamborghini",
+      "address": "Room 1880",
+      "no_of_rooms": 7,
+      "price": 69115,
+      "image": "http://dummyimage.com/2484x1526.png/5fa2dd/ffffff",
+      "currency_type": "TCG"
+    },
+    {
+      "id": 66,
+      "property_type": "Pontiac",
+      "address": "Apt 333",
+      "no_of_rooms": 10,
+      "price": 86201,
+      "image": "http://dummyimage.com/1889x1416.png/dddddd/000000",
+      "currency_type": "JOJ"
+    },
+    {
+      "id": 67,
+      "property_type": "Mazda",
+      "address": "8th Floor",
+      "no_of_rooms": 10,
+      "price": 15491,
+      "image": "http://dummyimage.com/2373x1241.png/dddddd/000000",
+      "currency_type": "GBP"
+    },
+    {
+      "id": 68,
+      "property_type": "Chevrolet",
+      "address": "16th Floor",
+      "no_of_rooms": 7,
+      "price": 77126,
+      "image": "http://dummyimage.com/1663x1106.png/cc0000/ffffff",
+      "currency_type": "MMJ"
+    },
+    {
+      "id": 69,
+      "property_type": "Ford",
+      "address": "Suite 16",
+      "no_of_rooms": 5,
+      "price": 21228,
+      "image": "http://dummyimage.com/1490x879.png/ff4444/ffffff",
+      "currency_type": "MHE"
+    },
+    {
+      "id": 70,
+      "property_type": "Chevrolet",
+      "address": "11th Floor",
+      "no_of_rooms": 2,
+      "price": 71387,
+      "image": "http://dummyimage.com/2229x1546.png/5fa2dd/ffffff",
+      "currency_type": "EUN"
+    },
+    {
+      "id": 71,
+      "property_type": "Dodge",
+      "address": "15th Floor",
+      "no_of_rooms": 8,
+      "price": 29433,
+      "image": "http://dummyimage.com/1196x1485.png/dddddd/000000",
+      "currency_type": "MXB"
+    },
+    {
+      "id": 72,
+      "property_type": "Ford",
+      "address": "20th Floor",
+      "no_of_rooms": 3,
+      "price": 71589,
+      "image": "http://dummyimage.com/1282x923.png/cc0000/ffffff",
+      "currency_type": "RAS"
+    },
+    {
+      "id": 73,
+      "property_type": "Ford",
+      "address": "Apt 907",
+      "no_of_rooms": 1,
+      "price": 26922,
+      "image": "http://dummyimage.com/1206x1412.png/5fa2dd/ffffff",
+      "currency_type": "CDW"
+    },
+    {
+      "id": 74,
+      "property_type": "Dodge",
+      "address": "15th Floor",
+      "no_of_rooms": 2,
+      "price": 99822,
+      "image": "http://dummyimage.com/1441x1469.png/ff4444/ffffff",
+      "currency_type": "ZAH"
+    },
+    {
+      "id": 75,
+      "property_type": "Volkswagen",
+      "address": "13th Floor",
+      "no_of_rooms": 4,
+      "price": 86220,
+      "image": "http://dummyimage.com/2053x816.png/ff4444/ffffff",
+      "currency_type": "VSA"
+    },
+    {
+      "id": 76,
+      "property_type": "Lotus",
+      "address": "18th Floor",
+      "no_of_rooms": 5,
+      "price": 80885,
+      "image": "http://dummyimage.com/2195x991.png/5fa2dd/ffffff",
+      "currency_type": "LFP"
+    },
+    {
+      "id": 77,
+      "property_type": "Ford",
+      "address": "PO Box 49307",
+      "no_of_rooms": 3,
+      "price": 36941,
+      "image": "http://dummyimage.com/2419x1376.png/5fa2dd/ffffff",
+      "currency_type": "ZOS"
+    },
+    {
+      "id": 78,
+      "property_type": "Volkswagen",
+      "address": "Room 627",
+      "no_of_rooms": 10,
+      "price": 12478,
+      "image": "http://dummyimage.com/1659x960.png/dddddd/000000",
+      "currency_type": "QSC"
+    },
+    {
+      "id": 79,
+      "property_type": "Cadillac",
+      "address": "Suite 7",
+      "no_of_rooms": 2,
+      "price": 98958,
+      "image": "http://dummyimage.com/1433x1135.png/cc0000/ffffff",
+      "currency_type": "UTE"
+    },
+    {
+      "id": 80,
+      "property_type": "Porsche",
+      "address": "Suite 84",
+      "no_of_rooms": 4,
+      "price": 84000,
+      "image": "http://dummyimage.com/1568x1070.png/cc0000/ffffff",
+      "currency_type": "UND"
+    },
+    {
+      "id": 81,
+      "property_type": "Ford",
+      "address": "Apt 437",
+      "no_of_rooms": 5,
+      "price": 81766,
+      "image": "http://dummyimage.com/1081x830.png/cc0000/ffffff",
+      "currency_type": "AFT"
+    },
+    {
+      "id": 82,
+      "property_type": "Chevrolet",
+      "address": "Suite 90",
+      "no_of_rooms": 4,
+      "price": 87555,
+      "image": "http://dummyimage.com/1373x922.png/dddddd/000000",
+      "currency_type": "EBB"
+    },
+    {
+      "id": 83,
+      "property_type": "Pontiac",
+      "address": "20th Floor",
+      "no_of_rooms": 4,
+      "price": 90593,
+      "image": "http://dummyimage.com/1779x1507.png/5fa2dd/ffffff",
+      "currency_type": "IST"
+    },
+    {
+      "id": 84,
+      "property_type": "Infiniti",
+      "address": "12th Floor",
+      "no_of_rooms": 1,
+      "price": 23843,
+      "image": "http://dummyimage.com/2399x1328.png/cc0000/ffffff",
+      "currency_type": "BZA"
+    },
+    {
+      "id": 85,
+      "property_type": "Suzuki",
+      "address": "Suite 25",
+      "no_of_rooms": 6,
+      "price": 98202,
+      "image": "http://dummyimage.com/1651x1255.png/ff4444/ffffff",
+      "currency_type": "BHQ"
+    },
+    {
+      "id": 86,
+      "property_type": "Acura",
+      "address": "Suite 56",
+      "no_of_rooms": 6,
+      "price": 88898,
+      "image": "http://dummyimage.com/2143x1406.png/cc0000/ffffff",
+      "currency_type": "KLL"
+    },
+    {
+      "id": 87,
+      "property_type": "Infiniti",
+      "address": "Apt 1053",
+      "no_of_rooms": 6,
+      "price": 65072,
+      "image": "http://dummyimage.com/1801x1531.png/dddddd/000000",
+      "currency_type": "AGU"
+    },
+    {
+      "id": 88,
+      "property_type": "Mitsubishi",
+      "address": "Room 1665",
+      "no_of_rooms": 6,
+      "price": 61618,
+      "image": "http://dummyimage.com/1147x786.png/5fa2dd/ffffff",
+      "currency_type": "CAG"
+    },
+    {
+      "id": 89,
+      "property_type": "Chevrolet",
+      "address": "PO Box 86864",
+      "no_of_rooms": 7,
+      "price": 84245,
+      "image": "http://dummyimage.com/2356x1431.png/dddddd/000000",
+      "currency_type": "RRS"
+    },
+    {
+      "id": 90,
+      "property_type": "BMW",
+      "address": "Suite 94",
+      "no_of_rooms": 2,
+      "price": 35723,
+      "image": "http://dummyimage.com/2101x873.png/cc0000/ffffff",
+      "currency_type": "CGM"
+    },
+    {
+      "id": 91,
+      "property_type": "Dodge",
+      "address": "19th Floor",
+      "no_of_rooms": 2,
+      "price": 87965,
+      "image": "http://dummyimage.com/2090x927.png/5fa2dd/ffffff",
+      "currency_type": "KAT"
+    },
+    {
+      "id": 92,
+      "property_type": "GMC",
+      "address": "19th Floor",
+      "no_of_rooms": 5,
+      "price": 10643,
+      "image": "http://dummyimage.com/1523x1091.png/ff4444/ffffff",
+      "currency_type": "ZZU"
+    },
+    {
+      "id": 93,
+      "property_type": "Dodge",
+      "address": "Suite 50",
+      "no_of_rooms": 10,
+      "price": 79729,
+      "image": "http://dummyimage.com/1759x997.png/dddddd/000000",
+      "currency_type": "DLZ"
+    },
+    {
+      "id": 94,
+      "property_type": "GMC",
+      "address": "17th Floor",
+      "no_of_rooms": 10,
+      "price": 53191,
+      "image": "http://dummyimage.com/2171x1528.png/5fa2dd/ffffff",
+      "currency_type": "GVA"
+    },
+    {
+      "id": 95,
+      "property_type": "Mercedes-Benz",
+      "address": "4th Floor",
+      "no_of_rooms": 9,
+      "price": 38140,
+      "image": "http://dummyimage.com/1055x1151.png/dddddd/000000",
+      "currency_type": "TTB"
+    },
+    {
+      "id": 96,
+      "property_type": "Buick",
+      "address": "Suite 35",
+      "no_of_rooms": 9,
+      "price": 82439,
+      "image": "http://dummyimage.com/1517x1539.png/ff4444/ffffff",
+      "currency_type": "MCU"
+    },
+    {
+      "id": 97,
+      "property_type": "Toyota",
+      "address": "PO Box 9970",
+      "no_of_rooms": 6,
+      "price": 79346,
+      "image": "http://dummyimage.com/2541x1282.png/dddddd/000000",
+      "currency_type": "CII"
+    },
+    {
+      "id": 98,
+      "property_type": "Cadillac",
+      "address": "Room 1632",
+      "no_of_rooms": 10,
+      "price": 34321,
+      "image": "http://dummyimage.com/1827x1359.png/5fa2dd/ffffff",
+      "currency_type": "NRI"
+    },
+    {
+      "id": 99,
+      "property_type": "Lincoln",
+      "address": "Apt 119",
+      "no_of_rooms": 6,
+      "price": 57303,
+      "image": "http://dummyimage.com/1082x1469.png/ff4444/ffffff",
+      "currency_type": "GRV"
+    },
+    {
+      "id": 100,
+      "property_type": "Hyundai",
+      "address": "PO Box 23634",
+      "no_of_rooms": 3,
+      "price": 64336,
+      "image": "http://dummyimage.com/2535x1397.png/5fa2dd/ffffff",
+      "currency_type": "IAO"
+    }
+  ]
+}

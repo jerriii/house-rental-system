@@ -1,0 +1,2 @@
+common contains all the components which are commonly used inside of layouts. for eg: button, input etc
+layout contains the components which is use to display in user interface. for eg: header, footer, navbar etc

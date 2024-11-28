@@ -1,0 +1,67 @@
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  VStack,
+} from "@chakra-ui/react";
+import React from "react";
+import { LoginSignupProps } from "../../types";
+
+const LoginForm: React.FC<LoginSignupProps> = ({
+  register,
+  formSubmit,
+  errors = {},
+    loading,
+}) => {
+  return (
+    // login form
+    <form onSubmit={formSubmit} className="flex-1 content-center">
+      <VStack>
+        {/* form control for email  */}
+        <FormControl isInvalid={!!errors?.email && !!errors?.email?.message}>
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <Input
+            id="email"
+            placeholder="Email"
+            {...register("email", {
+              required: "This is required",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Invalid email address",
+              },
+            })}
+            autoComplete="email"
+          />
+          <FormErrorMessage>
+            {errors.email && errors.email.message}
+          </FormErrorMessage>
+        </FormControl>
+        {/* form control for password */}
+        <FormControl
+          isInvalid={!!errors?.password && !!errors?.password?.message}
+        >
+          <FormLabel htmlFor="password">Password</FormLabel>
+          <Input
+            id="password"
+            placeholder="Password"
+            {...register("password", {
+              required: "This is required",
+              minLength: { value: 8, message: "Minimum length should be 8" },
+            })}
+          />
+          <FormErrorMessage>
+            {errors?.password && errors?.password?.message}
+          </FormErrorMessage>
+        </FormControl>
+        {/* submit */}
+        <Button mt={4} type="submit">
+          Login
+        </Button>
+      </VStack>
+    </form>
+  );
+};
+
+export default LoginForm;

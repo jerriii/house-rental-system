@@ -1,0 +1,6 @@
+import { CardProps } from "@chakra-ui/react";
+import { HouseCardTypes } from "./house.types";
+
+export type HouseCardProps = CardProps & {
+  cardData: HouseCardTypes;
+};

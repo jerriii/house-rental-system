@@ -1,0 +1,409 @@
+import {
+    Button,
+    Flex,
+    HStack, Icon, Image,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay, Tab,
+    Table, TabList, TabPanel, TabPanels, Tabs,
+    Tbody,
+    Td,
+    Text,
+    Tr,
+    useDisclosure,
+    useToast,
+    VStack,
+} from "@chakra-ui/react";
+import {Property} from "../../../../pages/landlord/LandlordProperty";
+import {Link, useNavigate} from "react-router-dom";
+import useCustomColor from "../../../../hooks/useCustomColor";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {deleteProperty} from "../../../../services/PropertyDataAPI";
+import {IoEllipsisVertical} from "react-icons/io5";
+import {
+    deletePropertyRentalUnit,
+    getPropertyRentalUnitByPropertyId
+} from "../../../../services/PropertyRentalUnitAPI.tsx";
+import {RentalUnit} from "../../../../types";
+import {capitalizeFirstLetter, getOrdinalSuffix} from "../../../../utils";
+import {FaPlus} from "react-icons/fa";
+import {useState} from "react";
+import {propertystatusConfig} from "../../UIconfig.tsx";
+
+const PropertyDescription = ({data}: { data: Property }) => {
+    const {data: property_rental_unit_data, isLoading, isError} = useQuery<{ units: RentalUnit[] }>({
+        queryKey: ["property_rental_unit", data._id],
+        queryFn: () => getPropertyRentalUnitByPropertyId(data._id),
+    })
+    const uniqueFloors = Array.from(
+        new Set(property_rental_unit_data?.units?.map((unit) => unit.floor))
+    ).sort((a, b) => a - b);
+    const [rentalIdForDelete, setRentalIdForDelete] = useState("");
+    console.log(rentalIdForDelete)
+    const toast = useToast();
+    const {isOpen: isOpenRentalDelete, onClose: onCloseRentalDelete, onOpen: onOpenRentalDelete} = useDisclosure();
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    const {header_background, alpha_color} = useCustomColor();
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    // Define the mutation for deleting a property
+    const {mutateAsync: deletePropertyMutation} = useMutation({
+        mutationFn: (propertyId: string) => deleteProperty(propertyId), // Call the deleteProperty function
+        onSuccess: () => {
+            // On successful deletion, invalidate the list of properties
+            queryClient.invalidateQueries({queryKey: ["property"]}).then(() => {
+                toast({
+                    title: "Property deleted successfully",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                    position: "top",
+                });
+            });
+        },
+        onError: (error) => {
+            // Handle error
+            console.error("Error deleting property:", error);
+            alert(`Error: ${error.message}`);
+        },
+    });
+
+    const {mutate: deletePropertyRentalUnitMutation, isPending} = useMutation({
+        mutationFn: (unitId: string) => deletePropertyRentalUnit(unitId), // Call the deleteProperty function
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ["property_rental_unit"]}).then(() => {
+                toast({
+                    title: "Rental unit deleted successfully",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                    position: "top",
+                });
+                setRentalIdForDelete(""); // Reset the rental ID
+                onCloseRentalDelete();  // Close the modal
+            });
+        },
+        onError: (error) => {
+            // Handle error
+            console.error("Error deleting property:", error);
+            alert(`Error: ${error.message}`);
+        },
+    });
+
+    const handleDelete = async (propertyId: string) => {
+        try {
+            await deletePropertyMutation(propertyId);
+        } catch (error) {
+            console.error("Error deleting property:", error);
+        }
+    };
+
+    const handleRentalUnitDelete = async (id: string) => {
+        try {
+            deletePropertyRentalUnitMutation(id);
+        } catch (error) {
+            console.error("Error deleting property:", error);
+        }
+    }
+
+    return (
+        <>
+            {/*basic information*/}
+            <VStack align={"start"} spacing={2} py={12}>
+                <Flex justifyContent={"space-between"} w={"100%"}>
+                    <Text fontSize={"2xl"} fontWeight={"bold"}>
+                        Basic Information
+                    </Text>
+                    <Menu>
+                        <MenuButton as={Button} variant={"unstyled"}>
+                            <IoEllipsisVertical/>
+                        </MenuButton>
+                        <MenuList>
+                            <MenuItem
+                                onClick={() =>
+                                    navigate(`/landlord-properties/edit/${data._id}`)
+                                }
+                            >
+                                Update
+                            </MenuItem>
+                            <MenuItem color="red" onClick={onOpen}>
+                                Delete
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                </Flex>
+                <Table>
+                    <Tbody>
+                        <Tr>
+                            <Td>
+                                <strong>Type:</strong>
+                            </Td>
+                            <Td>{data.property_type}</Td>
+                        </Tr>
+                        <Tr>
+                            <Td>
+                                <strong>Address:</strong>
+                            </Td>
+                            <Td>{data.address}</Td>
+                        </Tr>
+                        <Tr>
+                            <Td>
+                                <strong>City:</strong>
+                            </Td>
+                            <Td>{data.city}</Td>
+                        </Tr>
+                        <Tr>
+                            <Td>
+                                <strong>State:</strong>
+                            </Td>
+                            <Td>{data.state}</Td>
+                        </Tr>
+                        <Tr>
+                            <Td>
+                                <strong>Zip Code:</strong>
+                            </Td>
+                            <Td>{data.zip_code}</Td>
+                        </Tr>
+                        {/* <Tr>
+            <Td>
+              <strong>No. of Bedrooms:</strong>
+            </Td>
+            <Td>{property.no_of_bedrooms}</Td>
+          </Tr>
+          <Tr>
+            <Td>
+              <strong>No. of Bathrooms:</strong>
+            </Td>
+            <Td>{property.no_of_bathrooms}</Td>
+          </Tr> */}
+                        <Tr>
+                            <Td>
+                                <strong>Number of floors:</strong>
+                            </Td>
+                            <Td>{data.max_floors}</Td>
+                        </Tr>
+                        <Tr>
+                            <Td>
+                                <strong>Square Footage:</strong>
+                            </Td>
+                            <Td>{data.square_footage}</Td>
+                        </Tr>
+                        {/* <Tr>
+            <Td>
+              <strong>Rent Price:</strong>
+            </Td>
+            <Td>${property.rent_price.toFixed(2)}</Td>
+          </Tr>
+          <Tr>
+            <Td>
+              <strong>Available From:</strong>
+            </Td>
+            <Td>{new Date(property.available_from).toLocaleDateString()}</Td>
+          </Tr> */}
+                        {/* <Tr>
+            <Td>
+              <strong>Is Available:</strong>
+            </Td>
+            <Td>{property.is_available ? "Yes" : "No"}</Td>
+          </Tr> */}
+                    </Tbody>
+                </Table>
+                <Modal isOpen={isOpen} onClose={onClose}>
+                    <ModalOverlay bg={alpha_color} backdropFilter={"blur(10px)"}/>
+                    <ModalContent bg={header_background}>
+                        <ModalHeader>Modal Title</ModalHeader>
+                        <ModalCloseButton/>
+                        <ModalBody>
+                            Are you sure? All the contents will be deleted.
+                        </ModalBody>
+
+                        <ModalFooter gap={2}>
+                            <Button
+                                colorScheme="red"
+                                variant={"ghost"}
+                                onClick={() => {
+                                    handleDelete(data._id).then(() => {
+                                        navigate("/landlord-properties")
+                                    });
+                                }}
+                            >
+                                Delete
+                            </Button>
+                            <Button mr={3} onClick={onClose}>
+                                Cancel
+                            </Button>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+            </VStack>
+            {/*Rental Units*/}
+            <VStack>
+                <HStack w={"100%"} alignItems={"center"}>
+                    <Text fontSize={"2xl"} fontWeight={"bold"}>
+                        Rental Units
+                    </Text>
+                    <Button as={Link}
+                            leftIcon={<FaPlus/>}
+                            to={`/add-rental-unit/${data._id}`}
+                            variant={"ghost"}
+                    >
+                        Add Rental Unit
+                    </Button>
+                </HStack>
+                {isLoading && <Text>Loading...</Text>}
+                {isError && <Text>Error fetching data</Text>}
+                {!property_rental_unit_data && <Text>No data available</Text>}
+                {property_rental_unit_data &&
+                    <Tabs width={"100%"} colorScheme={"buttonColors"} >
+                        <TabList >
+                            {uniqueFloors.map((numbers) => (
+                                <Tab key={`floors-${numbers}`}>{getOrdinalSuffix(numbers)}</Tab>
+                            ))}
+                        </TabList>
+                        <TabPanels>
+                            {uniqueFloors.map((floor) => (
+                                <TabPanel p={4} key={`panel-${floor}`}>
+                                    {property_rental_unit_data.units
+                                        .filter((unit) => unit.floor === floor) // Filter data for the current floor
+                                        .map((unit) => (
+                                            <Table key={unit._id}>
+                                                <Tbody>
+                                                    <Tr>
+                                                        <Td>
+                                                            <strong>Description:</strong>
+                                                        </Td>
+                                                        <Td>{unit.unit_description}</Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td>
+                                                            <strong>Price:</strong>
+                                                        </Td>
+                                                        <Td>Rs. {unit.price}/month</Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td>
+                                                            <strong>Number of Bedrooms:</strong>
+                                                        </Td>
+                                                        <Td>{unit.number_of_bedrooms}</Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td>
+                                                            <strong>Number of Bathrooms:</strong>
+                                                        </Td>
+                                                        <Td>{unit.number_of_bathrooms}</Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td>
+                                                            <strong>Status:</strong>
+                                                        </Td>
+                                                        <Td color={propertystatusConfig[unit.status].color} display={"flex"} gap={2}><Icon as={propertystatusConfig[unit.status].icon}/>{unit.status}</Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td>
+                                                            <strong>Rent Period:</strong>
+                                                        </Td>
+                                                        <Td>{unit.rent_period} months</Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td>
+                                                            <strong>Space Sharing:</strong>
+                                                        </Td>
+                                                        <Td>{unit.space_sharing ? "Yes" : "No"}</Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td>
+                                                            <strong>Amenities:</strong>
+                                                        </Td>
+                                                        <Td>
+                                                            {unit.amenities
+                                                                ? unit.amenities.map((amenity, index) => (
+                                                                    <Text
+                                                                        key={index}>{`${capitalizeFirstLetter(amenity.key)}: ${amenity.value}`}<br/></Text>
+                                                                ))
+                                                                : "N/A"}
+                                                        </Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td>
+                                                            <strong>Images:</strong>
+                                                        </Td>
+                                                        <Td display={"flex"} gap={4} flexWrap={"wrap"}>
+                                                            {unit.unit_images.map((image, index) => (
+                                                                <Image
+                                                                    key={index}
+                                                                    src={`http://localhost:4200${image}`}
+                                                                    alt={`Image ${index}`}
+                                                                    width={"100px"}
+                                                                    height={"100px"}
+                                                                    objectFit="cover"
+                                                                />
+                                                            ))}
+                                                        </Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td>
+                                                            <strong>Action:</strong>
+                                                        </Td>
+                                                        <Td colSpan={2}>
+                                                            <HStack>
+                                                                <Link to={`/update-rental-unit/${unit._id}`}>
+                                                                    <Button>Update</Button>
+                                                                </Link>
+                                                                <Button
+                                                                    colorScheme="red"
+                                                                    onClick={() => {
+                                                                        setRentalIdForDelete(unit._id);  // Set the rental ID for deletion
+                                                                        onOpenRentalDelete();             // Open the modal
+                                                                    }}
+                                                                    variant={"ghost"}
+                                                                >
+                                                                    Delete
+                                                                </Button>
+                                                            </HStack>
+                                                        </Td>
+                                                    </Tr>
+                                                </Tbody>
+                                            </Table>
+                                        ))}
+                                </TabPanel>
+                            ))}
+                        </TabPanels>
+                    </Tabs>}
+            </VStack>
+                        <Modal isOpen={isOpenRentalDelete} onClose={onCloseRentalDelete}>
+                            <ModalOverlay bg={alpha_color} backdropFilter={"blur(10px)"}/>
+                            <ModalContent bg={header_background}>
+                                <ModalHeader>Modal Title</ModalHeader>
+                                <ModalCloseButton/>
+                                <ModalBody>
+                                    Are you sure? this rental unit will be deleted.
+                                </ModalBody>
+
+                                <ModalFooter gap={2}>
+                                    <Button
+                                        colorScheme="red"
+                                        variant={"ghost"}
+                                        isLoading={isPending}
+                                        onClick={() => handleRentalUnitDelete(rentalIdForDelete)}
+                                    >
+                                        Delete
+                                    </Button>
+                                    <Button mr={3} onClick={onCloseRentalDelete}>
+                                        Cancel
+                                    </Button>
+                                </ModalFooter>
+                            </ModalContent>
+                        </Modal>
+        </>
+    );
+};
+
+export default PropertyDescription;

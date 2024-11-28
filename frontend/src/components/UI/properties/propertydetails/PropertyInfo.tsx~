@@ -1,0 +1,90 @@
+import React from "react";
+import { Button, Flex, HStack, Image, Text } from "@chakra-ui/react";
+// import { IoLocationSharp } from "react-icons/io5";
+import Slider from "../../../common/Slider";
+import { Property } from "../../../../pages/landlord/LandlordProperty";
+import { useState } from "react";
+import useCustomColor from "../../../../hooks/useCustomColor";
+import { FaChevronLeft, FaTimes } from "react-icons/fa";
+
+const PropertyInfo = ({ data }: { data: Property }) => {
+  const { alpha_color } = useCustomColor();
+  const [isOpen, setIsOpen] = useState(false);
+  const [viewedImage, setViewedImage] = useState("");
+  return (
+    <>
+      {isOpen && (
+        <Flex
+          position={"absolute"}
+          inset={0}
+          p={16}
+          background={alpha_color}
+          backdropFilter={"blur(10px)"}
+          zIndex={20}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Button
+            variant={"unstyled"}
+            pos={"absolute"}
+            right={"1rem"}
+            top={"1rem"}
+            onClick={() => setIsOpen(false)}
+          >
+            <FaTimes />
+          </Button>
+          <Image src={`${viewedImage}`} alt="house" h={"100%"} />
+        </Flex>
+      )}
+
+      <HStack width={"100%"} justifyContent={"space-between"}>
+        <Flex gap={4} flexDir={{ base: "column", md: "row" }}>
+          {data?.name && 
+          <>
+            <Text>House Name: </Text>
+            <Text fontWeight={"bold"}>Hello</Text>
+          </>
+           }
+
+          {/* <Text display={"inline-flex"} alignItems={"center"} gap={1}>
+            <IoLocationSharp
+              style={{
+                width: "1rem",
+                height: "1rem",
+                }}
+                />
+                Address */}
+          {/* </Text> */}
+        </Flex>
+        <Button variant={"link"} onClick={() => window.history.back()}>
+          <FaChevronLeft /> Back
+        </Button>
+        {/* <VStack as={"article"} alignItems={"flex-start"}>
+          <Text>Price</Text>
+          <Text fontWeight={"bold"}>$1200 per month</Text>
+        </VStack> */}
+      </HStack>
+      <HStack w={"100%"} py={"20px"} justifyContent={"center"}>
+        <Slider slidesPerViewProps={{ base: 1, md: 2, lg: 3 }}>
+          {data.images.map((src: string | undefined, i: number) => (
+            <Image
+              key={i}
+              src={`http://localhost:4200${src}`}
+              alt="house"
+              width={"100%"}
+              maxW={"300px"}
+              aspectRatio={"16/9"}
+              _hover={{ cursor: "pointer" }}
+              onClick={() => {
+                setIsOpen(true);
+                setViewedImage(`http://localhost:4200${src}`);
+              }}
+            />
+          ))}
+        </Slider>
+      </HStack>
+    </>
+  );
+};
+
+export default PropertyInfo;

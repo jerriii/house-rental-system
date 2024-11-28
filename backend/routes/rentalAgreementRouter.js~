@@ -1,0 +1,34 @@
+const express = require('express');
+const router = express.Router();
+const path = require("node:path");
+const {upload} = require("../middleware/Image");
+
+router.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Create a rental agreement
+router.post('/create', upload.array('document_image', 5), );
+
+// Get all rental agreements
+router.get('/', async (req, res) => {
+    try {
+        const rentalAgreements = await RentalAgreement.find();
+        res.status(200).json(rentalAgreements);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching rental agreements', error: error.message });
+    }
+});
+
+// Get rental agreement by ID
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const rentalAgreement = await RentalAgreement.findById(id);
+        if (!rentalAgreement) {
+            return res.status(404).json({ message: 'Rental agreement not found' });
+        }
+        res.status(200).json(rentalAgreement);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching rental agreement', error: error.message });
+    }
+});
+
+module.exports = router;

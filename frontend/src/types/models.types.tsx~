@@ -1,0 +1,97 @@
+export type User = {
+    _id: string;
+    name: string;
+    image?: string;
+    email: string;
+    password: string;
+    phone: string;
+    address: string;
+    user_type: 'landlord' | 'tenant';
+    is_profile_complete: boolean;
+    created_at: Date;
+    updated_at: Date;
+}
+
+export type Property = {
+    _id: string;
+    owner_id: string;
+    name?: string;
+    property_type: string;
+    address: string;
+    city: string;
+    state: string;
+    zip_code: number;
+    square_footage: number;
+    max_floors: number;
+    images: File[];
+    created_at: Date;
+    updated_at: Date;
+}
+
+export type RentalUnit<T = string> = {
+    _id: string;
+    property_id: T;
+    floor: number;
+    number_of_bedrooms: number;
+    number_of_bathrooms: number;
+    price: number;
+    rent_period?: number;
+    status: string;
+    space_sharing?: boolean;
+    unit_description:string;
+    unit_images: File[];
+    amenities?: { key: string; value: string, _id?: string }[];
+    created_at: Date;
+    updated_at: Date;
+}
+
+export type Preferences = {
+    _id: string;
+    user_id: string;
+    price_range: {
+        min: number;
+        max: number;
+    };
+    space_sharing: 'yes' | 'no';
+    amenities: { key: string; value: string }[];
+    location: {
+        type: 'Point';
+        coordinates: [number, number];
+    };
+}
+
+export type EmergencyContact = {
+    name: string;
+    phone: string;
+    relationship?: string;
+    email?: string;
+};
+
+export type Pet = {
+    type: 'dog' | 'cat' | 'bird' | 'reptile' | 'other';
+    count: '1' | '2' | '3' | '4+';
+    description?: string;
+};
+
+export type Vehicle = {
+    type: 'car' | 'motorcycle' | 'bicycle' | 'scooter' | 'other';
+    count: '1' | '2' | '3' | '4+';
+    description?: string;
+};
+
+export type RentalAgreement = {
+    user_id: string; // MongoDB ObjectId type (string as it's converted to string in some cases)
+    rental_unit_id: string; // MongoDB ObjectId type (string)
+    employment_status: 'employed' | 'unemployed' | 'self-employed';
+    income_type: string;
+    pay_frequency: 'monthly' | 'quarterly' | 'weekly' | 'annually';
+    income_amount: number;
+    identity_document: string[]; // Array of strings (URLs or paths of the documents)
+    identity_document_type: 'passport' | 'driving license' | 'national id' | 'citizenship';
+    emergency_contact?: EmergencyContact; // Emergency contact is optional
+    pets?: Pet; // Pets is optional, array of pet objects
+    field_visit: boolean; // Boolean value
+    vehicle?: Vehicle; // Vehicle is optional, array of vehicle objects
+    created_at: Date; // Date when the rental agreement was created
+    updated_at: Date; // Date when the rental agreement was last updated
+};

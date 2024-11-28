@@ -1,0 +1,57 @@
+const RentalAgreement = require("../models/RentalAgreementSchema"); // Adjust the path as needed
+
+const createRentalAgreement = async (req, res) => {
+    try {
+        // Extract fields from `req.body` and files from `req.files`
+        const {
+            user_id,
+            rental_unit_id,
+            employment_status,
+            income_type,
+            pay_frequency,
+            income_amount,
+            identity_document_type,
+            emergency_contact,
+            pets,
+            field_visit,
+            vehicle
+        } = req.body;
+
+        console.log(req.body, "images: ",req.files);
+
+        // Handle files (uploaded via multer)
+        const document_images = req.files?.map(file => file.filename) || []; // Get filenames of uploaded files
+
+        // Construct a new rental agreement object
+        const rentalAgreement = new RentalAgreement({
+            user_id,
+            rental_unit_id,
+            employment_status,
+            income_type,
+            pay_frequency,
+            income_amount,
+            identity_document_type,
+            document_image: document_images,
+            emergency_contact: emergency_contact ? JSON.parse(emergency_contact) : undefined, // Parse JSON strings if sent as such
+            pets: pets ? JSON.parse(pets) : undefined, // Parse pets JSON string
+            field_visit: field_visit === 'true', // Convert "true"/"false" strings to boolean
+            vehicle: vehicle ? JSON.parse(vehicle) : undefined, // Parse vehicle JSON string
+            created_at: new Date(),
+            updated_at: new Date(),
+        });
+
+        // Save to the database
+        await rentalAgreement.save();
+
+        // Respond with success
+        res.status(201).json({ message: 'Rental agreement created successfully', rentalAgreement });
+    } catch (error) {
+        console.error("Error creating rental agreement:", error);
+        res.status(500).json({ message: 'Error creating rental agreement', error: error.message });
+    }
+};
+
+module.exports = { createRentalAgreement };
+
+
+module.exports = { createRentalAgreement };

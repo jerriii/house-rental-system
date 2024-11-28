@@ -1,0 +1,111 @@
+const mongoose = require("mongoose");
+
+const rentalAgreementSchema = new mongoose.Schema({
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    rental_unit_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "PropertyRentalUnit",
+        required: true,
+    },
+    employment_status: {
+        type: String,
+        enum: ["employed", "unemployed", "self-employed"],
+        required: true,
+    },
+    income_type: {
+        type: String,
+        required: true,
+    },
+    pay_frequency: {
+        type: String,
+        enum: ["monthly", "quarterly", "weekly", "annually"],
+        required: true,
+    },
+    income_amount: {
+        type: Number,
+        required: true,
+    },
+    identity_document_type: {
+        type: String,
+        enum: ["passport", "driving license", "national id", "citizenship"],
+        required: true,
+    },
+    document_image: [
+        {
+            type: String,
+        },
+    ], // Fixed: `required: true` doesn't belong here; it's handled at the field level, not inside an array
+    emergency_contact: {
+        name: {
+            type: String,
+            required: true, // Name is required if `emergency_contact` is provided
+        },
+        phone: {
+            type: String,
+            required: true, // Phone is required if `emergency_contact` is provided
+        },
+        relationship: {
+            type: String,
+            required: false, // Optional
+        },
+        email: {
+            type: String,
+            required: false, // Optional
+        },
+    },
+    pets: {
+        type: {
+            type: String,
+            required: false,  // Optional pet type
+            enum: ["dog", "cat", "bird", "reptile", "other"],  // Predefined pet types
+        },
+        count: {
+            type: String,  // Allows "1", "2", "3", "4+"
+            required: false,  // Optional count
+            enum: ["1", "2", "3", "4+"],  // Restrict to valid count values
+        },
+        description: {
+            type: String,
+            required: false,  // Optional description
+            maxlength: 200,  // Restrict to a reasonable length (e.g., 200 characters)
+        },
+    },
+    field_visit: {
+        type: Boolean,
+        default: false,  // Default to false if not provided
+    },
+    vehicle: {
+        type: {
+            type: String,
+            required: false,  // Optional vehicle type
+            enum: ["car", "motorcycle", "bicycle", "scooter", "other"],  // Predefined vehicle types
+        },
+        count: {
+            type: String,  // Allows "1", "2", "3", "4+"
+            required: false,  // Optional count
+            enum: ["1", "2", "3", "4+"],  // Restrict to valid count values
+        },
+        description: {
+            type: String,
+            required: false,  // Optional description
+            maxlength: 200,  // Restrict to a reasonable length (e.g., 200 characters)
+        },
+    },
+
+    created_at: {
+        type: Date,
+        default: Date.now,
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now,
+    },
+});
+
+const RentalAgreement = mongoose.model("RentalAgreement", rentalAgreementSchema);
+
+module.exports = RentalAgreement;

@@ -1,0 +1,42 @@
+import PropertyDescription from "../../components/UI/properties/propertydetails/PropertyDescription";
+import PropertyInfo from "../../components/UI/properties/propertydetails/PropertyInfo";
+import { getPropertyById } from "../../services/PropertyDataAPI";
+import { useQuery } from "@tanstack/react-query";
+import { Text } from "@chakra-ui/react";
+import Loader from "../../components/common/Loader";
+import { Property } from "../landlord/LandlordProperty";
+import { useParams } from "react-router-dom";
+
+const PropertyDetails = () => {
+  const { id } = useParams();
+  const { isLoading, isError, data } = useQuery<Property>({
+    queryKey: ["property", id],
+    queryFn: () => getPropertyById(id!),
+    staleTime: 3000
+  });
+
+  if(isLoading){
+    return <Loader />;
+  }
+
+  if(isError){
+      return <Text>Error fetching property details. Please try again later.</Text>
+  }
+  if(!data)
+  {
+    return <Text>No property details available.</Text>;
+  }
+
+  return (
+    <>
+      {data && (
+        <>
+          <PropertyInfo data={data} />
+          <PropertyDescription data={data} />
+        </>
+      )}
+    </>
+  );
+};
+
+export default PropertyDetails;
