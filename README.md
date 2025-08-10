@@ -11,21 +11,4 @@ Key Features:
 - **Frontend:** React, Chakra UI  
 - **Backend:** Node.js, Express.js, MongoDB
 
-This project demonstrates modern web development practices for creating scalable and user-friendly rental platforms.
-
-### Screenshots 
-
-**Homepage**
-![homepage](https://github.com/user-attachments/assets/68556bc3-e377-44fa-ae37-ee7df61faa21) 
-
-**Explore**
-![explore](https://github.com/user-attachments/assets/70045762-25f3-4eef-acb0-9e8c6fed8682)
-
-**Bookings**
-![bookings](https://github.com/user-attachments/assets/16e1107f-d0a8-46e7-a575-49a44312f4e1)
-
-**Homepage(landlord)**
-![landlord homepage](https://github.com/user-attachments/assets/3e05e213-2c55-4d6f-9579-6977da9cf223)
-
-**Properties(landlord)**
-![landlord properties](https://github.com/user-attachments/assets/4cac2c0d-bedc-41c0-be31-0b75c8ba1ad2)
+This project demonstrates modern web development practices for creating scalable and user-friendly rental platforms
